@@ -88,15 +88,14 @@ def main_page():
     elif request.args.get('owner_id'):
         owner_id = int(request.args.get('owner_id'))
         blogs = Blog.query.filter_by(owner_id=owner_id).all()
-
     elif request.args.get('page'):
         page = int(request.args.get('page'))
-        blogs = Blog.query.paginate(page,5,False).items
+        pagination = Blog.query.paginate(page,5,True)
+        blogs = pagination.items
     else:
         blogs = Blog.query.all()
 
-    return render_template('blog.html', title = "This Blog", blogs = blogs, page=page)
-
+    return render_template('blog.html', title = "This Blog", blogs = blogs,pagination=pagination)
 
 @app.route('/newpost', methods=['GET', 'POST'])
 def post_it(): 
