@@ -130,5 +130,5 @@ def add_post():
     return redirect ('/blog?id=' + str(id))
 
 
-
-app.run()
+if __name__ == '__main__':
+    app.run()
