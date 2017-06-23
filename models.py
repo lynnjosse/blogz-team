@@ -1,5 +1,6 @@
 from app import db
 from hashutil import make_pw_hash
+import datetime
 class User(db.Model):
  
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +19,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), unique=True)    
     body = db.Column(db.Text)
-    pub_date = db.Column(db.Date)
+    pub_date = db.Column(db.DateTime)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, title, body, owner, pub_date=None):
@@ -28,4 +29,4 @@ class Blog(db.Model):
         if pub_date is None:
             pub_date = datetime.datetime.utcnow()
         self.pub_date = pub_date
-        self.pub_date = pub_date
+    
