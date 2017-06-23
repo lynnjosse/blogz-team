@@ -2,6 +2,7 @@ from models import User, Blog
 from flask import request, redirect, render_template, session, flash
 import datetime
 from app import app, db
+from hashutil import make_pw_hash, check_pw_hash, make_salt
 
 endpoints_without_login = ['login', 'register', 'index', 'main_page']
 
@@ -61,7 +62,7 @@ def login():
         users = User.query.filter_by(username=username)
         if users.count() == 1:
             user = users.first()
-            if password == user.password:
+            if check_pw_hash(password, user.pw_hash):
                 session['user'] = user.username
                 flash('welcome back, '+ user.username, 'success')
                 return redirect("/blog")
