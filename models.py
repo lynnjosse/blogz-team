@@ -25,6 +25,7 @@ class Blog(db.Model):
         self.title = title
         self.body = body
         self.owner = owner
-        #if pub_date is None:
-        #    pub_date = date.today()
+        if pub_date is None:
+            pub_date = datetime.datetime.utcnow()
+        self.pub_date = pub_date
         self.pub_date = pub_date
